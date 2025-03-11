@@ -92,5 +92,5 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
         with:
-          artifact_name: coverage-reports
+          artifact_name: CoverageReports
           token: ${{ github.token }}
