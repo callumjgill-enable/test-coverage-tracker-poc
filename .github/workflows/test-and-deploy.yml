@@ -79,6 +79,7 @@ jobs:
 
     permissions:
       id-token: write # to verify the deployment originates from a github server running a github workflow from a specific branch for a specific github environment
+      pages: write
 
     environment:
       name: github-pages
