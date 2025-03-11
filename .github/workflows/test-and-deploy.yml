@@ -79,6 +79,8 @@ jobs:
     name: Deploy coverage report to GitHub Pages
     needs: build-test-publish
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
 
     steps:
       - name: Deploy to GitHub Pages
