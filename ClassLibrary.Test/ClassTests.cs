@@ -14,4 +14,17 @@ public sealed class ClassTests
         // Assert
         Assert.True(result);
     }
+
+    [Fact]
+    public void MethodToTest_ReturnsFalse()
+    {
+        // Arrange
+        bool returnTrue = false;
+
+        // Act
+        bool result = Class.MethodToTest(returnTrue);
+
+        // Assert
+        Assert.False(result);
+    }
 }
