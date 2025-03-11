@@ -76,12 +76,18 @@ jobs:
     name: Deploy coverage report to GitHub Pages
     needs: build-test-publish
     runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write # to verify the deployment originates from a github server running a github workflow from a specific branch for a specific github environment
+
     environment:
       name: github-pages
+      url: ${{steps.deployment.outputs.page_url}}
 
     steps:
       - name: Deploy to GitHub Pages
         if: success() || failure()
+        id: deployment
         uses: actions/deploy-pages@v4
         with:
           artifact_name: coverage-reports
