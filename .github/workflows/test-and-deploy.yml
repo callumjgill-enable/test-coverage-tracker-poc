@@ -1,0 +1,89 @@
+name: Test and Deploy
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+env:
+  PACKAGE_PREFIX: program-line-calculations
+
+jobs:
+  build-test-publish:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+      actions: write
+      checks: write
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: Set up .NET 8 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore Packages
+        run: dotnet restore program-line-calculations.sln
+
+      - name: Build
+        run: dotnet build -c Release --no-restore
+
+      - name: Run tests
+        run: dotnet test -c Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage --logger trx --logger:"console;verbosity=minimal"
+
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: Program Line Calculations Tests
+          path: coverage/*.trx
+          reporter: dotnet-trx
+          fail-on-error: false
+
+      - name: Restore coverage history
+        if: success() || failure()
+        uses: dawidd6/action-download-artifact@v9
+        with:
+          name: coverage-history
+          path: coverage/history
+        continue-on-error: true
+
+      - name: Generate Coverage Report
+        if: success() || failure()
+        run: |
+          dotnet tool restore
+          dotnet tool run reportgenerator -reports:coverage/**/coverage.cobertura.xml -targetdir:coverage/reports -historydir:coverage/history "-title:Calculation Code Coverage"
+
+      - name: Upload test results and coverage artifact
+        if: success() || failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-reports
+          path: coverage/reports
+
+      - name: Upload test results and coverage artifact
+        if: success() || failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-history
+          path: coverage/history
+
+  upload-github-page:
+    name: Deploy coverage report to GitHub Pages
+    needs: build-test-publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to GitHub Pages
+        if: success() || failure()
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: coverage-reports
+          token: ${{ github.token }}
