@@ -48,8 +48,9 @@ jobs:
         if: success() || failure()
         uses: dawidd6/action-download-artifact@v9
         with:
-          name: coverage-history
+          name: CoverageHistory
           path: coverage/history
+          workflow_search: true
         continue-on-error: true
 
       - name: Generate Coverage Report
@@ -62,14 +63,14 @@ jobs:
         if: success() || failure()
         uses: actions/upload-pages-artifact@v3
         with:
-          name: coverage-reports
+          name: CoverageReports
           path: coverage/reports
 
       - name: Upload test results and coverage artifact
         if: success() || failure()
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-history
+          name: CoverageHistory
           path: coverage/history
 
   upload-github-page:
