@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary", "ClassLibrary\ClassLibrary.csproj", "{FC95C705-4078-4C77-AACD-53563BB79FCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary.Test", "ClassLibrary.Test\ClassLibrary.Test.csproj", "{EB831B40-BAB6-402C-8667-3C7716E2552B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FC95C705-4078-4C77-AACD-53563BB79FCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC95C705-4078-4C77-AACD-53563BB79FCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC95C705-4078-4C77-AACD-53563BB79FCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC95C705-4078-4C77-AACD-53563BB79FCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB831B40-BAB6-402C-8667-3C7716E2552B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB831B40-BAB6-402C-8667-3C7716E2552B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB831B40-BAB6-402C-8667-3C7716E2552B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB831B40-BAB6-402C-8667-3C7716E2552B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
